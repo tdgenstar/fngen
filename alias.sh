@@ -1,0 +1,1 @@
+alias t="./test.sh"
