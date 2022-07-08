@@ -1,6 +1,9 @@
 package layer
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestLine_Name(t *testing.T) {
 	type fields struct {
@@ -49,6 +52,94 @@ func TestLine_Name(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("Name() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestLine_Map(t *testing.T) {
+	type fields struct {
+		name  string
+		Start Point
+		End   Point
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   []Line
+	}{
+		{
+			"Line > Map() : empty name",
+			fields{
+				name:  "",
+				Start: Point{},
+				End:   Point{},
+			},
+			[]Line{},
+		},
+		{
+			"Line > Map() : success",
+			fields{
+				name:  "test",
+				Start: Point{1, 2},
+				End:   Point{3, 4},
+			},
+			[]Line{
+				{"test", Point{1, 2}, Point{3, 4}},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := Line{
+				name:  tt.fields.name,
+				Start: tt.fields.Start,
+				End:   tt.fields.End,
+			}
+			if got := r.Map(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Map() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestLine_LengthToPoint(t *testing.T) {
+	type fields struct {
+		name  string
+		Start Point
+		End   Point
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    float64
+		wantErr bool
+	}{
+		{
+			"line > lengthToPoint : not impl",
+			fields{
+				name:  "",
+				Start: Point{},
+				End:   Point{},
+			},
+			0.0,
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := Line{
+				name:  tt.fields.name,
+				Start: tt.fields.Start,
+				End:   tt.fields.End,
+			}
+			got, err := r.LengthToPoint()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("LengthToPoint() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("LengthToPoint() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

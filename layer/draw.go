@@ -12,7 +12,14 @@ func (r Line) LengthToPoint() (float64, error) {
 
 func (r Line) Name() (string, error) {
 	if r.name == "" {
-		return "", err("not name")
+		return "", err("empty name")
 	}
 	return r.name, nil
+}
+
+func (r Line) Map() []Line {
+	if r.name == "" {
+		return []Line{}
+	}
+	return []Line{r}
 }
