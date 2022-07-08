@@ -144,3 +144,55 @@ func TestLine_LengthToPoint(t *testing.T) {
 		})
 	}
 }
+
+func TestSquare_Name(t *testing.T) {
+	type fields struct {
+		name  string
+		Start Point
+		End   Point
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    string
+		wantErr bool
+	}{
+		{
+			"square > name : success",
+			fields{
+				name:  "test",
+				Start: Point{1, 2},
+				End:   Point{3, 4},
+			},
+			"test",
+			false,
+		},
+		{
+			"square > name : empty name",
+			fields{
+				name:  "",
+				Start: Point{1, 2},
+				End:   Point{3, 4},
+			},
+			"",
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := Square{
+				name:  tt.fields.name,
+				Start: tt.fields.Start,
+				End:   tt.fields.End,
+			}
+			got, err := r.Name()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Name() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Name() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
