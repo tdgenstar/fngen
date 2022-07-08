@@ -69,9 +69,7 @@ func TestLocation_Draw(t *testing.T) {
 				X: 0,
 				Y: 0,
 			},
-			[]Location{
-				{},
-			},
+			[]Location{},
 			true,
 		},
 		{
