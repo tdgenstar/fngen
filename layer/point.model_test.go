@@ -19,7 +19,7 @@ func TestLocation_String(t *testing.T) {
 		// TODO: Add test cases.
 
 		{
-			"Location > String, success",
+			"Point > String, success",
 			fields{
 				X: 100.54,
 				Y: 200.123,
@@ -28,7 +28,7 @@ func TestLocation_String(t *testing.T) {
 			false,
 		},
 		{
-			"Location > String, fail : nil error",
+			"Point > String, fail : nil error",
 			fields{},
 			"",
 			true,
@@ -36,7 +36,7 @@ func TestLocation_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := Location{
+			r := Point{
 				X: tt.fields.X,
 				Y: tt.fields.Y,
 			}
@@ -60,7 +60,7 @@ func TestLocation_Draw(t *testing.T) {
 	tests := []struct {
 		name    string
 		fields  fields
-		want    []Location
+		want    []Point
 		wantErr bool
 	}{
 		{
@@ -69,9 +69,7 @@ func TestLocation_Draw(t *testing.T) {
 				X: 0,
 				Y: 0,
 			},
-			[]Location{
-				{},
-			},
+			[]Point{},
 			true,
 		},
 		{
@@ -80,7 +78,7 @@ func TestLocation_Draw(t *testing.T) {
 				X: 123.123,
 				Y: 12.1234,
 			},
-			[]Location{
+			[]Point{
 				{123.123000, 12.1234},
 			},
 			false,
@@ -88,7 +86,7 @@ func TestLocation_Draw(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := Location{
+			r := Point{
 				X: tt.fields.X,
 				Y: tt.fields.Y,
 			}
