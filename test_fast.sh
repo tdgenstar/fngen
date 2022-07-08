@@ -1,0 +1,1 @@
+go test -failfast -coverprofile cover.out ./... -cover
