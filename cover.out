@@ -4,3 +4,6 @@ fn/layer/error.go:11.34,13.2 1 1
 fn/layer/location.go:12.44,13.26 1 1
 fn/layer/location.go:16.2,16.44 1 1
 fn/layer/location.go:13.26,15.3 1 1
+fn/layer/location.go:19.46,20.26 1 1
+fn/layer/location.go:23.2,23.27 1 1
+fn/layer/location.go:20.26,22.3 1 1

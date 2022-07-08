@@ -15,3 +15,10 @@ func (r Location) String() (string, error) {
 	}
 	return fmt.Sprintf("%f,%f", r.X, r.Y), nil
 }
+
+func (r Location) Draw() ([]Location, error) {
+	if r.X == 0 || r.Y == 0 {
+		return []Location{}, err("0,0 is nil")
+	}
+	return []Location{r}, nil
+}
