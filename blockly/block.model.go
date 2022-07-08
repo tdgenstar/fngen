@@ -1,6 +1,9 @@
 package blockly
 
-import "fn/layer"
+import (
+	"fn/fngen"
+	"fn/layer"
+)
 
 type Block struct {
 	layer.Square
@@ -8,4 +11,8 @@ type Block struct {
 
 func Create() (*Block, error) {
 	return nil, nil
+}
+
+func (r Block) Concat() fngen.Monad {
+	return fngen.Monad{}
 }
