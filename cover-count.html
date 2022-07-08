@@ -98,17 +98,28 @@ type Location struct {
 }
 
 func (r Location) String() (string, error) <span class="cov8" title="1">{
-        if r.X == 0 || r.Y == 0 </span><span class="cov8" title="1">{
-                return "", err("0,0 is nil")
+        err1 := r.validate()
+        if err1 != nil </span><span class="cov8" title="1">{
+                return "", err1
         }</span>
+
         <span class="cov8" title="1">return fmt.Sprintf("%f,%f", r.X, r.Y), nil</span>
 }
 
 func (r Location) Draw() ([]Location, error) <span class="cov8" title="1">{
-        if r.X == 0 || r.Y == 0 </span><span class="cov8" title="1">{
-                return []Location{}, err("0,0 is nil")
+        err1 := r.validate()
+        if err1 != nil </span><span class="cov8" title="1">{
+                return nil, err1
         }</span>
+
         <span class="cov8" title="1">return []Location{r}, nil</span>
+}
+
+func (r Location) validate() error <span class="cov8" title="1">{
+        if r.X == 0 || r.Y == 0 </span><span class="cov8" title="1">{
+                return err("0,0 is nil")
+        }</span>
+        <span class="cov8" title="1">return nil</span>
 }
 </pre>
 		
