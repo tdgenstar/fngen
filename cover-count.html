@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>fngen: Go Coverage Report</title>
+		<title>blockly: Go Coverage Report</title>
 		<style>
 			body {
 				background: black;
@@ -55,13 +55,15 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">fn/fngen/model.go (100.0%)</option>
+				<option value="file0">fn/blockly/block.model.go (100.0%)</option>
 				
-				<option value="file1">fn/layer/draw.go (100.0%)</option>
+				<option value="file1">fn/fngen/model.go (100.0%)</option>
 				
-				<option value="file2">fn/layer/error.go (100.0%)</option>
+				<option value="file2">fn/layer/draw.go (100.0%)</option>
 				
-				<option value="file3">fn/layer/point.model.go (100.0%)</option>
+				<option value="file3">fn/layer/error.go (100.0%)</option>
+				
+				<option value="file4">fn/layer/point.model.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -75,14 +77,55 @@
 		</div>
 		<div id="content">
 		
-		<pre class="file" id="file0" style="display: none">package fngen
+		<pre class="file" id="file0" style="display: none">package blockly
 
-import "context"
+import (
+        "context"
+        "fn/fngen"
+        "fn/layer"
+)
+
+type Block struct {
+        layer.Square
+        Context context.Context
+}
+
+func Create() (*Block, error) <span class="cov8" title="1">{
+
+        return &amp;Block{
+                Square:  layer.Square{},
+                Context: context.Background(),
+        }, nil
+}</span>
+
+func (r Block) Concat() fngen.Monad <span class="cov8" title="1">{
+        monad := fngen.Monad{
+                Context:  nil,
+                Di:       nil,
+                ConcatFn: fngen.ConcatFn(Block{
+                        Square:  r.Square,
+                        Context: r.Context,
+                }),
+        }
+        return monad
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package fngen
+
+import (
+        "context"
+)
 
 type Monad struct {
         key     []string
         Context context.Context
         Di      []Monad
+        ConcatFn
+}
+
+type ConcatFn interface {
+        Concat() Monad
 }
 
 type FuncBase interface {
@@ -114,7 +157,7 @@ func (m Monad) Collect() Monad <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package layer
+		<pre class="file" id="file2" style="display: none">package layer
 
 type Line struct {
         name  string
@@ -154,7 +197,7 @@ func (r Square) Name() (string, error) <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package layer
+		<pre class="file" id="file3" style="display: none">package layer
 
 type fnError struct {
         message string
@@ -169,7 +212,7 @@ func err(message string) fnError <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package layer
+		<pre class="file" id="file4" style="display: none">package layer
 
 import (
         "fmt"

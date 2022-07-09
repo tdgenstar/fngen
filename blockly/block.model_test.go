@@ -1,6 +1,7 @@
 package blockly
 
 import (
+	"context"
 	"fn/fngen"
 	"fn/layer"
 	"reflect"
@@ -15,7 +16,11 @@ func TestCreate(t *testing.T) {
 	}{
 		{
 			"block create",
-			nil, false,
+			&Block{
+				Square:  layer.Square{},
+				Context: context.Background(),
+			},
+			false,
 		},
 	}
 	for _, tt := range tests {
@@ -43,6 +48,25 @@ func TestBlock_Concat(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		// TODO: 연결 시키는데 성공
+		{
+			name: "block > concat success",
+			fields: fields{
+				Square: layer.Square{
+					Start: layer.Point{X: 1, Y: 2},
+					End:   layer.Point{X: 3, Y: 4},
+				},
+			},
+			want: fngen.Monad{
+				Context: nil,
+				Di:      nil,
+				ConcatFn: fngen.ConcatFn(Block{
+					Square: layer.Square{
+						Start: layer.Point{X: 1, Y: 2},
+						End:   layer.Point{X: 3, Y: 4},
+					},
+				}),
+			},
+		},
 		// TODO: 연결 시키는데 실패 - validate - 연결이 불가능한 블록
 		// TODO: 연결 시키는데 실패 - validate - 순환참조
 		// TODO: 연결 시키는데 실패 - validate - 없는 것을 연결

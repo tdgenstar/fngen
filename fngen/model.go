@@ -1,11 +1,18 @@
 package fngen
 
-import "context"
+import (
+	"context"
+)
 
 type Monad struct {
 	key     []string
 	Context context.Context
 	Di      []Monad
+	ConcatFn
+}
+
+type ConcatFn interface {
+	Concat() Monad
 }
 
 type FuncBase interface {
