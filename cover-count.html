@@ -90,18 +90,18 @@ type Block struct {
         Context context.Context
 }
 
-func Create() (*Block, error) <span class="cov8" title="1">{
+func Create(ctx context.Context) (*Block, error) <span class="cov8" title="1">{
 
         return &amp;Block{
                 Square:  layer.Square{},
-                Context: context.Background(),
+                Context: ctx,
         }, nil
 }</span>
 
 func (r Block) Concat() fngen.Monad <span class="cov8" title="1">{
         monad := fngen.Monad{
-                Context:  nil,
-                Di:       nil,
+                Context: r.Context,
+                Di:      nil,
                 ConcatFn: fngen.ConcatFn(Block{
                         Square:  r.Square,
                         Context: r.Context,

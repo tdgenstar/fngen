@@ -11,17 +11,17 @@ type Block struct {
 	Context context.Context
 }
 
-func Create() (*Block, error) {
+func Create(ctx context.Context) (*Block, error) {
 
 	return &Block{
 		Square:  layer.Square{},
-		Context: context.Background(),
+		Context: ctx,
 	}, nil
 }
 
 func (r Block) Concat() fngen.Monad {
 	monad := fngen.Monad{
-		Context: nil,
+		Context: r.Context,
 		Di:      nil,
 		ConcatFn: fngen.ConcatFn(Block{
 			Square:  r.Square,
