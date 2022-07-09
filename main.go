@@ -1,7 +1,8 @@
 package main
 
-import "fn/io"
+import "fn/cogen"
 
 func main() {
-	io.Start()
+	//io.Start()
+	cogen.ExampleCode()
 }
